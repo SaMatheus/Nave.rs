@@ -1,13 +1,21 @@
 import React from 'react';
+
+// ROUTES
 import Login from '../pages/Login';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import Home from '../pages/Home';
+import Add from '../pages/Add';
+
+// ROUTER
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Route path='/' exact component={Login} />
+        <Route path='/home' component={Home} />
+        <Route path='/add' component={Add} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }

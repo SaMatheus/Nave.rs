@@ -6,8 +6,9 @@
 }
 
 :root {
-  --background: #e5e5e5;
-  --black: #212121;
+  --white: #ffffff;
+  --black-primary: #212121;
+  --black-secondary: #424242;
 }
 
 body > * {
@@ -18,21 +19,16 @@ body > * {
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--white);
 }
 
 body,
 input,
 button {
   font: 16px Montserrat, sans-serif;
+  color: var(--black-secondary);
 }
 
 button {
   cursor: pointer;
-}
-
-#root {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px;
 }
