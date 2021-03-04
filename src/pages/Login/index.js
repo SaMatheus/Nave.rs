@@ -3,7 +3,7 @@ import React from 'react';
 import { Container, Content } from './styles';
 
 // AXIOS
-import api from '../services/api';
+import api from '../../services/api';
 
 // COMPONENTS
 import Input from '../../components/Input';

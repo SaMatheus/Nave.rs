@@ -22,8 +22,4 @@ export const ButtonStyle = styled.button`
 
   width: 100%;
   height: 40px;
-
-  &:hover {
-    background: var(--black-secondary);
-  }
 `;
