@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 function Header() {
   const history = useHistory();
   const handleClick = () => {
+    window.localStorage.removeItem('token');
     history.push('/');
   };
 

@@ -6,7 +6,11 @@ function Input(props) {
     <>
       <Label htmlFor={props.for}>
         <p>{props.children}</p>
-        <InputStyle type={props.type} placeholder={props.placeholder} />
+        <InputStyle
+          type={props.type}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+        />
       </Label>
     </>
   );

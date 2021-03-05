@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// CORS para liberação do acesso à API
+const url = 'https://navedex-api.herokuapp.com/v1/';
+
 const api = axios.create({
-  baseURL: 'https://www.postman.com/collections/e6afe4028c2a1e56e577/',
+  baseURL: url,
 });
 
 export default api;

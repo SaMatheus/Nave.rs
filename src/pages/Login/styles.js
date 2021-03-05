@@ -8,16 +8,12 @@ export const Container = styled.div`
 
   height: 100vh;
   width: 100vw;
-
-  img {
-    margin-bottom: 32px;
-  }
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   padding: 40px 32px;
@@ -32,7 +28,22 @@ export const Content = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    height: auto;
+
     flex: 1;
     width: 100%;
+
+    padding-top: 40px;
+
+    position: relative;
+  }
+
+  span {
+    color: var(--warning);
+
+    font-size: 14px;
+
+    position: absolute;
+    top: 10px;
   }
 `;

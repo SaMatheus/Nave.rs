@@ -9,6 +9,7 @@
   --white: #ffffff;
   --black-primary: #212121;
   --black-secondary: #424242;
+  --warning: #df3636;
 }
 
 body > * {

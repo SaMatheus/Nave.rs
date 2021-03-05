@@ -29,10 +29,20 @@ export const Grid = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 0 32px;
   padding: 0 32px;
+
+  width: 100%;
+
+  @media (max-width: 1080px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 760px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const Profile = styled.div`
-  width: 100%;
+  width: 280px;
   height: 420px;
 
   display: flex;
