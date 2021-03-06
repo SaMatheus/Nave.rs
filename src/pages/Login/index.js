@@ -14,17 +14,44 @@ import Button from '../../components/Button';
 import { useHistory } from 'react-router-dom';
 
 // PLUGIN VALIDATOR
-import Validator from '@this-empathy/javascript-validator';
+import Validator, { cnh } from '@this-empathy/javascript-validator';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [isValid, setIsValid] = useState(false);
-  const [error, setError] = useState(false);
   const [inputValueError, setInputValueError] = useState(false);
+  const [inputDataError, setInputDataError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   let history = useHistory();
+
+  const messageValueError = 'Há campos em branco!';
+  const messageDataError = 'Usuário não encontrado. Email ou senha inválidos!';
+
+  const emailIsValid = (str) => {
+    let pattern = new RegExp(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i);
+    return !!pattern.test(str);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const validation = await emailIsValid(email);
+
+    if (validation && password.length > 5) {
+      setInputDataError(false);
+      setInputValueError(false);
+      return postData();
+    }
+    if (email.length === 0 || password.length === 0) {
+      setInputDataError(false);
+      return setInputValueError(true);
+    } else {
+      setInputValueError(false);
+      return setInputDataError(true);
+    }
+  };
 
   const postData = () => {
     api
@@ -33,36 +60,12 @@ function Login() {
         password,
       })
       .then((response) => {
-        setIsValid(true);
         window.localStorage.setItem('token', response.data.token);
         history.push('/home');
       })
       .catch((error) => {
-        console.log(error.status);
+        setErrorText('Oops, algo deu errado. O erro foi: ' + error);
       });
-  };
-
-  const authFormValues = () => {
-    if (Validator.email(email) && password.length > 5) {
-      setError(false);
-      setInputValueError(false);
-
-      postData();
-    }
-    if (email === '' || password === '') {
-      setIsValid(false);
-      setInputValueError(true);
-    } else {
-      setInputValueError(false);
-      setIsValid(false);
-      setError(true);
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    authFormValues();
   };
 
   return (
@@ -71,9 +74,9 @@ function Login() {
         <Content>
           <img src='/icons/logo.svg' alt='logomarca Nave.rs' />
           <form onSubmit={handleSubmit}>
-            {!isValid && inputValueError ? (
+            {inputValueError ? (
               <span>Há campos em branco!</span>
-            ) : !isValid && error ? (
+            ) : inputDataError ? (
               <span>Usuário não encontrado. Email ou senha inválidos!</span>
             ) : (
               ''
@@ -82,7 +85,10 @@ function Login() {
               for='e-mail'
               type='text'
               placeholder='E-mail'
-              onChange={({ target }) => setEmail(target.value)}
+              onChange={({ target }) => {
+                setEmail(target.value);
+              }}
+              onBlur={() => {}}
               required
             >
               E-mail
