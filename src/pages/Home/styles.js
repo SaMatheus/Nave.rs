@@ -34,6 +34,7 @@ export const Grid = styled.div`
 
   @media (max-width: 1080px) {
     grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
 
   @media (max-width: 760px) {
