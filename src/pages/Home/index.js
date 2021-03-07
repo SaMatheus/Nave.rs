@@ -58,6 +58,45 @@ const Home = () => {
               </button>
             </div>
           </Profile>
+          <Profile>
+            <span></span>
+            <h3>Nome do perfil</h3>
+            <p>Profissão</p>
+            <div>
+              <button>
+                <img src='/icons/bin.svg' alt='deletar' />
+              </button>
+              <button onClick={handleClickToEdit}>
+                <img src='/icons/pencil.svg' alt='editar' />
+              </button>
+            </div>
+          </Profile>
+          <Profile>
+            <span></span>
+            <h3>Nome do perfil</h3>
+            <p>Profissão</p>
+            <div>
+              <button>
+                <img src='/icons/bin.svg' alt='deletar' />
+              </button>
+              <button onClick={handleClickToEdit}>
+                <img src='/icons/pencil.svg' alt='editar' />
+              </button>
+            </div>
+          </Profile>
+          <Profile>
+            <span></span>
+            <h3>Nome do perfil</h3>
+            <p>Profissão</p>
+            <div>
+              <button>
+                <img src='/icons/bin.svg' alt='deletar' />
+              </button>
+              <button onClick={handleClickToEdit}>
+                <img src='/icons/pencil.svg' alt='editar' />
+              </button>
+            </div>
+          </Profile>
         </Grid>
       </Content>
     </>
