@@ -18,14 +18,12 @@ import { RiArrowLeftSLine } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
 
 const Add = () => {
-  const [name, setName] = useState('Matheus Sá');
-  const [job, setJob] = useState('Desenvoveldor');
-  const [birthdate, setBirthdate] = useState('07-08-1998');
-  const [admissionDate, setAdmissionDate] = useState('01-10-2020');
-  const [project, setProject] = useState('Front-end Test');
-  const [url, setUrl] = useState(
-    'https://avatars.githubusercontent.com/u/38141771?v=4'
-  );
+  const [name, setName] = useState('');
+  const [job, setJob] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [admissionDate, setAdmissionDate] = useState('');
+  const [project, setProject] = useState('');
+  const [url, setUrl] = useState('');
 
   const history = useHistory();
 
@@ -38,21 +36,38 @@ const Add = () => {
         project: project,
         name: name,
         url: url,
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem('token')}`,
-        },
       })
       .then((response) => console.log(response));
   };
 
+  const axiosInterceptorResponse = () => {
+    api.interceptors.response.use(
+      function (response) {
+        createNaver();
+        return response;
+      },
+      function (error) {
+        console.log(error);
+        return Promise.reject(error);
+      }
+    );
+  };
+
+  // https://avatars.githubusercontent.com/u/38141771?v=4
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    createNaver();
+    axiosInterceptorResponse();
   };
 
   const handleClickBack = () => {
-    history.push('/home');
+    const token = localStorage.getItem('token');
+    if (token) {
+      return history.push('/home');
+    } else {
+      console.log('Token não encontrado, finalizando sessão!');
+      return history.push('/');
+    }
   };
 
   return (
@@ -70,37 +85,49 @@ const Add = () => {
               type='text'
               placeholder='Nome'
               onChange={({ target }) => setName(target.value)}
-            ></Input>
+            >
+              Nome
+            </Input>
             <Input
               for='job_role'
               type='text'
               placeholder='Cargo'
               onChange={({ target }) => setJob(target.value)}
-            ></Input>
+            >
+              Cargo
+            </Input>
             <Input
               for='birthdate'
               type='date'
               placeholder='Idade'
               onChange={({ target }) => setBirthdate(target.value)}
-            ></Input>
+            >
+              Idade
+            </Input>
             <Input
               for='admission_date'
               type='date'
               placeholder='Tempo de empresa'
               onChange={({ target }) => setAdmissionDate(target.value)}
-            ></Input>
+            >
+              Tempo de empresa
+            </Input>
             <Input
               for='project'
               type='text'
               placeholder='Projetos que participou'
               onChange={({ target }) => setProject(target.value)}
-            ></Input>
+            >
+              Projetos que participou
+            </Input>
             <Input
               for='url'
               type='text'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
-            ></Input>
+            >
+              URL da foto do Naver
+            </Input>
             <span></span>
             <Button type='submit'>Salvar</Button>
           </FormStyle>

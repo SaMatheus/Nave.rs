@@ -13,9 +13,6 @@ import Button from '../../components/Button';
 // ROUTER
 import { useHistory } from 'react-router-dom';
 
-// PLUGIN VALIDATOR
-import Validator, { cnh } from '@this-empathy/javascript-validator';
-
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,12 +23,25 @@ function Login() {
 
   let history = useHistory();
 
-  const messageValueError = 'Há campos em branco!';
-  const messageDataError = 'Usuário não encontrado. Email ou senha inválidos!';
-
   const emailIsValid = (str) => {
     let pattern = new RegExp(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i);
     return !!pattern.test(str);
+  };
+
+  const postData = () => {
+    api
+      .post('users/login', {
+        email,
+        password,
+      })
+      .then((response) => {
+        window.localStorage.setItem('token', response.data.token);
+        history.push('/home');
+      })
+      .catch((error) => {
+        setErrorText('Oops, algo deu errado. O erro foi: ' + error);
+        console.log(errorText);
+      });
   };
 
   const handleSubmit = async (event) => {
@@ -51,21 +61,6 @@ function Login() {
       setInputValueError(false);
       return setInputDataError(true);
     }
-  };
-
-  const postData = () => {
-    api
-      .post('users/login', {
-        email,
-        password,
-      })
-      .then((response) => {
-        window.localStorage.setItem('token', response.data.token);
-        history.push('/home');
-      })
-      .catch((error) => {
-        setErrorText('Oops, algo deu errado. O erro foi: ' + error);
-      });
   };
 
   return (
