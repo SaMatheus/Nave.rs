@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Input(props) {
+function Input(props, ...rest) {
   return (
     <>
       <Label htmlFor={props.for}>
@@ -10,6 +10,7 @@ function Input(props) {
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          {...rest}
         />
       </Label>
     </>

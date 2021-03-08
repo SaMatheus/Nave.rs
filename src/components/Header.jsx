@@ -36,7 +36,7 @@ const HeaderStyle = styled.header`
   left: 0;
 
   img {
-    width: 150px;
+    width: 180px;
   }
 
   button {
@@ -45,6 +45,15 @@ const HeaderStyle = styled.header`
 
     color: black;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
+  }
+
+  @media (max-width: 1400px) {
+    img {
+      width: 150px;
+    }
+    button {
+      font-size: 14px;
+    }
   }
 `;

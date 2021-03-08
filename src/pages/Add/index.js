@@ -27,12 +27,17 @@ const Add = () => {
 
   const history = useHistory();
 
-  const createNaver = async () => {
-    await api
-      .post('navers/create', {
+  const newBirthdate = new Date(Date.UTC(birthdate.split('')));
+
+  console.log(new Intl.DateTimeFormat('pt-BR', 'short').format(newBirthdate));
+  console.log(newBirthdate);
+
+  const createNaver = () => {
+    api
+      .post('navers/', {
         job_role: job,
-        admission_date: admissionDate,
-        birthdate: birthdate,
+        admission_date: '',
+        birthdate: '',
         project: project,
         name: name,
         url: url,
@@ -40,24 +45,9 @@ const Add = () => {
       .then((response) => console.log(response));
   };
 
-  const axiosInterceptorResponse = () => {
-    api.interceptors.response.use(
-      function (response) {
-        createNaver();
-        return response;
-      },
-      function (error) {
-        console.log(error);
-        return Promise.reject(error);
-      }
-    );
-  };
-
-  // https://avatars.githubusercontent.com/u/38141771?v=4
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    axiosInterceptorResponse();
+    createNaver();
   };
 
   const handleClickBack = () => {
@@ -85,6 +75,7 @@ const Add = () => {
               type='text'
               placeholder='Nome'
               onChange={({ target }) => setName(target.value)}
+              required
             >
               Nome
             </Input>
@@ -93,6 +84,7 @@ const Add = () => {
               type='text'
               placeholder='Cargo'
               onChange={({ target }) => setJob(target.value)}
+              required
             >
               Cargo
             </Input>
@@ -101,6 +93,7 @@ const Add = () => {
               type='date'
               placeholder='Idade'
               onChange={({ target }) => setBirthdate(target.value)}
+              required
             >
               Idade
             </Input>
@@ -109,6 +102,7 @@ const Add = () => {
               type='date'
               placeholder='Tempo de empresa'
               onChange={({ target }) => setAdmissionDate(target.value)}
+              required
             >
               Tempo de empresa
             </Input>
@@ -117,6 +111,7 @@ const Add = () => {
               type='text'
               placeholder='Projetos que participou'
               onChange={({ target }) => setProject(target.value)}
+              required
             >
               Projetos que participou
             </Input>
@@ -125,6 +120,7 @@ const Add = () => {
               type='text'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
+              required
             >
               URL da foto do Naver
             </Input>

@@ -37,10 +37,13 @@ function Login() {
         password,
       })
       .then((response) => {
+        setIsValid(true);
         window.localStorage.setItem('token', response.data.token);
         history.push('/home');
       })
       .catch((error) => {
+        setIsValid(false);
+        setInputDataError(true);
         setErrorText('Oops, algo deu errado. O erro foi: ' + error);
         console.log(errorText);
       });
@@ -52,9 +55,9 @@ function Login() {
     const validation = await emailIsValid(email);
 
     if (validation && password.length > 5) {
+      window.localStorage.removeItem('token');
       setInputDataError(false);
       setInputValueError(false);
-      setIsValid(true);
       return postData();
     }
     if (email.length === 0 || password.length === 0) {
