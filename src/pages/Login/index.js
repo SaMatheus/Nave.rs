@@ -17,6 +17,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isValid, setIsValid] = useState(false);
+
   const [inputValueError, setInputValueError] = useState(false);
   const [inputDataError, setInputDataError] = useState(false);
   const [errorText, setErrorText] = useState('');
@@ -52,12 +54,15 @@ function Login() {
     if (validation && password.length > 5) {
       setInputDataError(false);
       setInputValueError(false);
+      setIsValid(true);
       return postData();
     }
     if (email.length === 0 || password.length === 0) {
+      setIsValid(false);
       setInputDataError(false);
       return setInputValueError(true);
     } else {
+      setIsValid(false);
       setInputValueError(false);
       return setInputDataError(true);
     }
@@ -73,6 +78,10 @@ function Login() {
               <span>Há campos em branco!</span>
             ) : inputDataError ? (
               <span>Usuário não encontrado. Email ou senha inválidos!</span>
+            ) : isValid ? (
+              <span style={{ color: 'green' }}>
+                Login realizado com sucesso! Redirecionando...
+              </span>
             ) : (
               ''
             )}
