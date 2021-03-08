@@ -16,26 +16,23 @@ import api from '../../services/api';
 const Home = () => {
   const history = useHistory();
 
-  const axiosInterceptorRequest = () => {
-    api.interceptors.request.use(
-      (config) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-          config.headers['Authorization'] = 'Bearer ' + token;
-        }
-        config.headers['Content-Type'] = 'application/json';
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
+  api.interceptors.request.use(
+    (config) => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers['Authorization'] = 'Bearer ' + token;
       }
-    );
-  };
+      config.headers['Content-Type'] = 'application/json';
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   useEffect(() => {
-    axiosInterceptorRequest();
     api
-      .get('index', {
+      .get('navers/index', {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem('token')}`,
         },
