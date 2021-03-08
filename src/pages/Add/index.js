@@ -20,24 +20,25 @@ import { useHistory } from 'react-router-dom';
 const Add = () => {
   const [name, setName] = useState('');
   const [job, setJob] = useState('');
-  const [birthdate, setBirthdate] = useState('');
-  const [admissionDate, setAdmissionDate] = useState('');
+  const [birthdate, setBirthdate] = useState('01/02/2020');
+  const [admissionDate, setAdmissionDate] = useState('01/02/2020');
   const [project, setProject] = useState('');
   const [url, setUrl] = useState('');
 
   const history = useHistory();
 
-  const newBirthdate = new Date(Date.UTC(birthdate.split('')));
+  const createNaver = async () => {
+    const newAdmissionDate = new Date(admissionDate);
+    const newBirthdate = new Date(birthdate);
 
-  console.log(new Intl.DateTimeFormat('pt-BR', 'short').format(newBirthdate));
-  console.log(newBirthdate);
+    const AdmissionUpdate = new Intl.DateTimeFormat().format(newAdmissionDate);
+    const birthUpdate = new Intl.DateTimeFormat().format(newBirthdate);
 
-  const createNaver = () => {
-    api
+    await api
       .post('navers/', {
         job_role: job,
-        admission_date: '',
-        birthdate: '',
+        admission_date: AdmissionUpdate,
+        birthdate: birthUpdate,
         project: project,
         name: name,
         url: url,

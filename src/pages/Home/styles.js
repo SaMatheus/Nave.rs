@@ -73,6 +73,7 @@ export const Profile = styled.div`
     cursor: pointer;
     filter: grayscale(1);
     background-position: center;
+    background-size: cover;
   }
 
   h3 {
