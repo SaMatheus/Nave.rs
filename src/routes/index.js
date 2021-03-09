@@ -9,37 +9,33 @@ import Edit from '../pages/Edit';
 import { isAuthenticated } from '../services/auth';
 
 // ROUTER
-import {
-  Redirect,
-  Switch,
-  Route,
-  BrowserRouter as Router,
-} from 'react-router-dom';
+import { Redirect, Switch, Route, BrowserRouter } from 'react-router-dom';
 
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) => {
-//         isAuthenticated() ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to={{ pathname: '/', state: { from: props.location } }} />
-//         );
-//       }}
-//     />
-//   );
-// };
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+      )
+    }
+  />
+);
 
-export default function Routes() {
+const Routes = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
-        <Route path='/' exact component={Login} />
-        <Route path='/home' component={Home} />
-        <Route path='/add' component={Add} />
-        <Route path='/edit' component={Edit} />
+        <Route exact path='/' component={Login} />
+        <PrivateRoute path='/home' component={Home} />
+        <PrivateRoute path='/add' component={Add} />
+        <PrivateRoute path='/edit' component={Edit} />
+        <Route path='*' component={() => <h1>Page not Found...</h1>} />
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
+
+export default Routes;

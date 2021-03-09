@@ -9,7 +9,15 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 // STYLES
-import { Container, Content, FormStyle, Back } from './styles';
+import {
+  Container,
+  Content,
+  FormStyle,
+  Back,
+  ButtonStyle,
+  Modal,
+  ModalContent,
+} from './styles';
 
 // ICONS
 import { RiArrowLeftSLine } from 'react-icons/ri';
@@ -24,6 +32,8 @@ const Add = () => {
   const [admissionDate, setAdmissionDate] = useState('');
   const [project, setProject] = useState('');
   const [url, setUrl] = useState('');
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const history = useHistory();
 
@@ -74,7 +84,8 @@ const Add = () => {
               type='text'
               placeholder='Nome'
               onChange={({ target }) => setName(target.value)}
-              required
+              minLength={3}
+              required='required'
             >
               Nome
             </Input>
@@ -83,7 +94,8 @@ const Add = () => {
               type='text'
               placeholder='Cargo'
               onChange={({ target }) => setJob(target.value)}
-              required
+              minLength={3}
+              required='required'
             >
               Cargo
             </Input>
@@ -92,7 +104,7 @@ const Add = () => {
               type='date'
               placeholder='Idade'
               onChange={({ target }) => setBirthdate(target.value)}
-              required
+              required='required'
             >
               Idade
             </Input>
@@ -101,7 +113,7 @@ const Add = () => {
               type='date'
               placeholder='Tempo de empresa'
               onChange={({ target }) => setAdmissionDate(target.value)}
-              required
+              required='required'
             >
               Tempo de empresa
             </Input>
@@ -110,7 +122,7 @@ const Add = () => {
               type='text'
               placeholder='Projetos que participou'
               onChange={({ target }) => setProject(target.value)}
-              required
+              required='required'
             >
               Projetos que participou
             </Input>
@@ -119,7 +131,8 @@ const Add = () => {
               type='text'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
-              required
+              minLength={5}
+              required='required'
             >
               URL da foto do Naver
             </Input>
@@ -128,6 +141,21 @@ const Add = () => {
           </FormStyle>
         </form>
       </Content>
+      {modalVisible && (
+        <Modal>
+          <ModalContent>
+            <ButtonStyle
+              onClick={() => {
+                setModalVisible(false);
+              }}
+            >
+              <img src='/icons/close.svg' alt='Botão para fechar o modal' />
+            </ButtonStyle>
+            <h1>Naver criado</h1>
+            <p>Naver criado com sucesso!</p>
+          </ModalContent>
+        </Modal>
+      )}
     </Container>
   );
 };

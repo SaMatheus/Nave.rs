@@ -6,6 +6,9 @@ import { Container, Content } from './styles';
 // AXIOS
 import api from '../../services/api';
 
+// AUTH
+import { login } from '../../services/auth';
+
 // COMPONENTS
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -30,21 +33,23 @@ function Login() {
     return !!pattern.test(str);
   };
 
-  const postData = () => {
-    api
+  const postData = async () => {
+    const response = await api
       .post('users/login', {
         email,
         password,
       })
       .then((response) => {
         setIsValid(true);
-        window.localStorage.setItem('token', response.data.token);
+        login(response.data.token);
         history.push('/home');
       })
       .catch((error) => {
         setIsValid(false);
         setInputDataError(true);
-        setErrorText('Oops, algo deu errado. O erro foi: ' + error);
+        setErrorText(
+          'Oops, algo deu errado. Verifique suas credenciais. T-T ' + error
+        );
         console.log(errorText);
       });
   };
@@ -52,7 +57,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const validation = await emailIsValid(email);
+    const validation = emailIsValid(email);
 
     if (validation && password.length > 5) {
       window.localStorage.removeItem('token');

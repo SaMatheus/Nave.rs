@@ -3,11 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useHistory } from 'react-router-dom';
+import { logout } from '../services/auth';
 
 function Header() {
   const history = useHistory();
   const handleClick = () => {
-    window.localStorage.removeItem('token');
+    logout();
     history.push('/');
   };
 
@@ -51,6 +52,23 @@ const HeaderStyle = styled.div`
     }
     button {
       font-size: 14px;
+    }
+  }
+  @media (max-width: 1080px) {
+    img {
+      width: 165px;
+    }
+    button {
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    img {
+      width: 180px;
+    }
+    button {
+      font-size: 20px;
     }
   }
 `;

@@ -4,6 +4,9 @@ export const Content = styled.div`
   padding-bottom: 2rem;
   position: relative;
 
+  height: 100%;
+  min-height: 100vh;
+
   header {
     display: flex;
     align-items: center;
@@ -43,7 +46,11 @@ export const Grid = styled.div`
   }
 
   @media (max-width: 760px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
   }
 `;
 
@@ -60,6 +67,20 @@ export const Profile = styled.div`
   @media (max-width: 1400px) {
     height: 360px;
     font-size: 14px;
+  }
+
+  @media (max-width: 1080px) {
+    height: 400px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 760px) {
+    height: 460px;
+  }
+
+  @media (max-width: 580px) {
+    height: 600px;
+    font-size: 18px;
   }
 
   span {
@@ -212,8 +233,8 @@ export const DeleteModal = styled.div`
   bottom: 0;
   left: 0;
 
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 
   display: flex;
   justify-content: center;
@@ -237,7 +258,10 @@ export const ModalDeleteContent = styled.div`
   justify-content: space-between;
   align-items: left;
 
-  position: relative;
+  position: fixed;
+  top: 50%;
+
+  transform: translateY(-50%);
 
   & > div {
     display: flex;
@@ -275,7 +299,10 @@ export const DeleteCompleteModal = styled.div`
   justify-content: space-between;
   align-items: left;
 
-  position: relative;
+  position: fixed;
+  top: 50%;
+
+  transform: translateY(-50%);
 
   & > button:nth-child(1) {
     position: absolute;

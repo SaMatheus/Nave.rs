@@ -11,6 +11,7 @@ function Input(props) {
           placeholder={props.placeholder}
           onChange={props.onChange}
           required={props.required}
+          minLength={props.minLength}
         />
       </Label>
     </>

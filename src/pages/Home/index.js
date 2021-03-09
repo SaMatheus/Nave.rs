@@ -27,6 +27,8 @@ import api from '../../services/api';
 const Home = () => {
   const history = useHistory();
 
+  const [getData, setGetData] = useState(false);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteProfileVisible, setDeleteProfileVisible] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -36,7 +38,16 @@ const Home = () => {
   const [naverIdToDelete, setNaverIdToDelete] = useState();
 
   useEffect(() => {
-    api.get('navers').then((response) => setNaversArray(response.data));
+    api
+      .get('navers')
+      .then((response) => {
+        setGetData(true);
+        setNaversArray(response.data);
+      })
+      .catch((error) => {
+        setGetData(false);
+        console.log(error);
+      });
   }, []);
 
   const handleClickToOpenModal = (id) => {
@@ -47,11 +58,8 @@ const Home = () => {
       .then((response) => setNaverModalData(response.data));
   };
 
-  const handleDeleteConfirmation = () => {
-    setDeleteConfirmation(true);
-    api.delete(`navers/${naverIdToDelete}`);
-
-    window.location.reload();
+  const handleDeleteConfirmation = async () => {
+    await api.delete(`navers/${naverIdToDelete}`);
   };
 
   return (
@@ -64,123 +72,135 @@ const Home = () => {
             Adicionar Naver
           </Button>
         </header>
-        <Grid>
-          {naversArray.map((naver, index) => {
-            return (
-              <Profile key={naver.id}>
-                <span
-                  onClick={() => {
-                    handleClickToOpenModal(naversArray[index].id);
-                    setModalVisible(true);
-                  }}
-                  style={{ backgroundImage: `url(${naver.url})` }}
-                ></span>
-                <h3>{naver.name}</h3>
-                <p>{naver.job_role}</p>
-                <div>
-                  <ButtonStyle
+        {getData ? (
+          <Grid>
+            {naversArray.map((naver, index) => {
+              return (
+                <Profile key={naver.id}>
+                  <span
                     onClick={() => {
-                      setNaverIdToDelete(naver.id);
-                      setModalVisible(false);
-                      setDeleteProfileVisible(true);
+                      handleClickToOpenModal(naversArray[index].id);
+                      setModalVisible(true);
                     }}
-                  >
-                    <img src='/icons/bin.svg' alt='deletar' />
-                  </ButtonStyle>
-                  <ButtonStyle onClick={() => history.push('/edit')}>
-                    <img src='/icons/pencil.svg' alt='editar' />
-                  </ButtonStyle>
-                </div>
-                {modalVisible && !deleteProfileVisible ? (
-                  <Modal>
-                    <ModalContent>
-                      <ButtonStyle
-                        onClick={() => {
-                          setNaverModalData([]);
-                          setModalVisible(false);
-                        }}
-                      >
-                        <img
-                          src='/icons/close.svg'
-                          alt='Botão para fechar o modal'
-                        />
-                      </ButtonStyle>
-                      <img src={naverModalData.url} alt='' />
-                      <ContentRight>
-                        <h1>{naverModalData.name}</h1>
-                        <p>{naverModalData.job_role}</p>
-                        <h3>Idade</h3>
-                        <p>{naverModalData.birthdate}</p>
-                        <h3>Tempo de empresa</h3>
-                        <p>{naverModalData.admission_date}</p>
-                        <h3>Projetos que realizou</h3>
-                        <p>{naverModalData.project}</p>
-                        <div>
-                          <ButtonStyle
-                            onClick={() => {
-                              setNaverIdToDelete(naverModalData.id);
-                              setModalVisible(false);
-                              setDeleteProfileVisible(true);
-                            }}
-                          >
-                            <img src='/icons/bin.svg' alt='deletar naver' />
-                          </ButtonStyle>
-                          <ButtonStyle onClick={() => history.push('/edit')}>
-                            <img src='/icons/pencil.svg' alt='editar naver' />
-                          </ButtonStyle>
-                        </div>
-                      </ContentRight>
-                    </ModalContent>
-                  </Modal>
-                ) : !modalVisible && deleteProfileVisible ? (
-                  <DeleteModal>
-                    {!deleteConfirmation ? (
-                      <ModalDeleteContent>
-                        <h1>Excluir Naver</h1>
-                        <p>Tem certeza que deseja excluir este Naver?</p>
-                        <div>
-                          <Button
-                            onClick={() => setDeleteProfileVisible(false)}
-                          >
-                            Cancelar
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              setNaverIdToDelete(naverModalData.id);
-                              handleDeleteConfirmation();
-                            }}
-                          >
-                            Excluir
-                          </Button>
-                        </div>
-                      </ModalDeleteContent>
-                    ) : deleteConfirmation ? (
-                      <DeleteCompleteModal key={naverModalData.id}>
+                    style={{ backgroundImage: `url(${naver.url})` }}
+                  ></span>
+                  <h3>{naver.name}</h3>
+                  <p>{naver.job_role}</p>
+                  <div>
+                    <ButtonStyle
+                      onClick={() => {
+                        setModalVisible(false);
+                        setDeleteProfileVisible(true);
+                        setNaverIdToDelete(naver.id);
+                      }}
+                    >
+                      <img src='/icons/bin.svg' alt='deletar' />
+                    </ButtonStyle>
+                    <ButtonStyle onClick={() => history.push('/edit')}>
+                      <img src='/icons/pencil.svg' alt='editar' />
+                    </ButtonStyle>
+                  </div>
+                  {modalVisible && !deleteProfileVisible ? (
+                    <Modal>
+                      <ModalContent>
                         <ButtonStyle
                           onClick={() => {
-                            setDeleteProfileVisible(false);
-                            setDeleteConfirmation(false);
+                            setNaverModalData([]);
+                            setModalVisible(false);
                           }}
                         >
                           <img
                             src='/icons/close.svg'
-                            alt='Botão para fechar o modal de Naver excluido com sucesso'
+                            alt='Botão para fechar o modal'
                           />
                         </ButtonStyle>
-                        <h1>Naver excluído</h1>
-                        <p>Naver excluído com sucesso!</p>
-                      </DeleteCompleteModal>
-                    ) : (
-                      ''
-                    )}
-                  </DeleteModal>
-                ) : (
-                  ''
-                )}
-              </Profile>
-            );
-          })}
-        </Grid>
+                        <img src={naverModalData.url} alt='' />
+                        <ContentRight>
+                          <h1>{naverModalData.name}</h1>
+                          <p>{naverModalData.job_role}</p>
+                          <h3>Idade</h3>
+                          <p>{naverModalData.birthdate}</p>
+                          <h3>Tempo de empresa</h3>
+                          <p>{naverModalData.admission_date}</p>
+                          <h3>Projetos que realizou</h3>
+                          <p>{naverModalData.project}</p>
+                          <div>
+                            <ButtonStyle
+                              onClick={() => {
+                                setNaverIdToDelete(naverModalData.id);
+                                setModalVisible(false);
+                                setDeleteProfileVisible(true);
+                              }}
+                            >
+                              <img src='/icons/bin.svg' alt='deletar naver' />
+                            </ButtonStyle>
+                            <ButtonStyle onClick={() => history.push('/edit')}>
+                              <img src='/icons/pencil.svg' alt='editar naver' />
+                            </ButtonStyle>
+                          </div>
+                        </ContentRight>
+                      </ModalContent>
+                    </Modal>
+                  ) : !modalVisible && deleteProfileVisible ? (
+                    <DeleteModal>
+                      {!deleteConfirmation ? (
+                        <ModalDeleteContent>
+                          <h1>Excluir Naver</h1>
+                          <p>Tem certeza que deseja excluir este Naver?</p>
+                          <div>
+                            <Button
+                              onClick={() => setDeleteProfileVisible(false)}
+                            >
+                              Cancelar
+                            </Button>
+                            <Button
+                              onClick={() => {
+                                setDeleteConfirmation(true);
+                                setNaverIdToDelete(naverModalData.id);
+                                handleDeleteConfirmation();
+                              }}
+                            >
+                              Excluir
+                            </Button>
+                          </div>
+                        </ModalDeleteContent>
+                      ) : deleteConfirmation ? (
+                        <DeleteCompleteModal key={naverModalData.id}>
+                          <ButtonStyle
+                            onClick={() => {
+                              setDeleteProfileVisible(false);
+                              setDeleteConfirmation(false);
+                              window.location.reload();
+                            }}
+                          >
+                            <img
+                              src='/icons/close.svg'
+                              alt='Botão para fechar o modal de Naver excluido com sucesso'
+                            />
+                          </ButtonStyle>
+                          <h1>Naver excluído</h1>
+                          <p>Naver excluído com sucesso!</p>
+                        </DeleteCompleteModal>
+                      ) : (
+                        ''
+                      )}
+                    </DeleteModal>
+                  ) : (
+                    ''
+                  )}
+                </Profile>
+              );
+            })}
+          </Grid>
+        ) : !getData ? (
+          <h1
+            style={{ fontSize: '32px', margin: '10% 0 0 32px', opacity: '0.5' }}
+          >
+            Aguardando Navers...
+          </h1>
+        ) : (
+          ''
+        )}
       </Content>
     </>
   );

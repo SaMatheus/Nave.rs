@@ -64,3 +64,74 @@ export const Back = styled.button`
     font-weight: 600;
   }
 `;
+
+export const ButtonStyle = styled.button`
+  background: none;
+  border: 0 none;
+
+  display: inline;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+
+  &:nth-child(1) {
+    margin-right: 16px;
+  }
+`;
+
+export const Modal = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1;
+
+  background: rgba(0, 0, 0, 0.5);
+`;
+
+export const ModalContent = styled.div`
+  height: 160px;
+  width: 592px;
+
+  padding: 32px;
+
+  background: var(--white);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+
+  position: fixed;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  & > button:nth-child(1) {
+    position: absolute;
+    top: 21px;
+    right: 21px;
+
+    margin: 0;
+
+    z-index: 1;
+
+    img {
+      height: 14px;
+      width: 14px;
+    }
+  }
+`;

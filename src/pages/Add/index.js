@@ -9,7 +9,15 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 // STYLES
-import { Container, Content, FormStyle, Back } from './styles';
+import {
+  Container,
+  Content,
+  FormStyle,
+  Back,
+  ButtonStyle,
+  Modal,
+  ModalContent,
+} from './styles';
 
 // ICONS
 import { RiArrowLeftSLine } from 'react-icons/ri';
@@ -25,17 +33,17 @@ const Add = () => {
   const [project, setProject] = useState('');
   const [url, setUrl] = useState('');
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const history = useHistory();
 
-  const redirectAndClearData = () => {
+  const clearData = () => {
     setName('');
     setJob('');
     setBirthdate('01/02/2020');
     setAdmissionDate('01/02/2020');
     setProject('');
     setUrl('');
-
-    history.push('/home');
   };
 
   const createNaver = async () => {
@@ -55,8 +63,12 @@ const Add = () => {
         url: url,
       })
       .then((response) => {
-        redirectAndClearData();
+        clearData();
+        setModalVisible(true);
         return response;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -90,6 +102,7 @@ const Add = () => {
               type='text'
               placeholder='Nome'
               onChange={({ target }) => setName(target.value)}
+              minLength={3}
               required='required'
             >
               Nome
@@ -99,6 +112,7 @@ const Add = () => {
               type='text'
               placeholder='Cargo'
               onChange={({ target }) => setJob(target.value)}
+              minLength={3}
               required='required'
             >
               Cargo
@@ -135,6 +149,7 @@ const Add = () => {
               type='text'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
+              minLength={5}
               required='required'
             >
               URL da foto do Naver
@@ -144,6 +159,21 @@ const Add = () => {
           </FormStyle>
         </form>
       </Content>
+      {modalVisible && (
+        <Modal>
+          <ModalContent>
+            <ButtonStyle
+              onClick={() => {
+                setModalVisible(false);
+              }}
+            >
+              <img src='/icons/close.svg' alt='Botão para fechar o modal' />
+            </ButtonStyle>
+            <h1>Naver criado</h1>
+            <p>Naver criado com sucesso!</p>
+          </ModalContent>
+        </Modal>
+      )}
     </Container>
   );
 };
