@@ -27,6 +27,17 @@ const Add = () => {
 
   const history = useHistory();
 
+  const redirectAndClearData = () => {
+    setName('');
+    setJob('');
+    setBirthdate('01/02/2020');
+    setAdmissionDate('01/02/2020');
+    setProject('');
+    setUrl('');
+
+    history.push('/home');
+  };
+
   const createNaver = async () => {
     const newAdmissionDate = new Date(admissionDate);
     const newBirthdate = new Date(birthdate);
@@ -43,7 +54,10 @@ const Add = () => {
         name: name,
         url: url,
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        redirectAndClearData();
+        return response;
+      });
   };
 
   const handleSubmit = (event) => {

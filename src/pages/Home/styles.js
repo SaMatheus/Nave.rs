@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  margin-top: 100px;
-
-  @media (max-width: 1400px) {
-    margin-top: 70px;
-  }
+  padding-bottom: 2rem;
+  position: relative;
 
   header {
     display: flex;
@@ -31,7 +28,7 @@ export const Content = styled.div`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0 40px;
+  gap: 40px;
   padding: 0 32px;
 
   width: 100%;
@@ -51,7 +48,7 @@ export const Grid = styled.div`
 `;
 
 export const Profile = styled.div`
-  width: 380px;
+  width: 100%;
   height: 520px;
 
   display: flex;
@@ -61,7 +58,6 @@ export const Profile = styled.div`
   font-size: 16px;
 
   @media (max-width: 1400px) {
-    width: 281px;
     height: 360px;
     font-size: 14px;
   }
@@ -74,6 +70,10 @@ export const Profile = styled.div`
     filter: grayscale(1);
     background-position: center;
     background-size: cover;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
   }
 
   h3 {
@@ -118,14 +118,11 @@ export const Modal = styled.div`
   bottom: 0;
   left: 0;
 
-  height: 100vh;
-  width: 100vw;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
-  z-index: 100;
+  z-index: 1;
 
   background: rgba(0, 0, 0, 0.5);
 `;
@@ -134,11 +131,20 @@ export const ModalContent = styled.div`
   height: 80%;
   width: 80%;
 
+  max-height: 700px;
+  max-width: 1203px;
+
+  @media (max-width: 1400px) {
+    max-height: 500px;
+    max-width: 1003px;
+  }
+
   background: var(--white);
 
   display: flex;
 
-  position: relative;
+  position: fixed;
+  top: 109px;
 
   & > button:nth-child(1) {
     position: absolute;
@@ -161,31 +167,19 @@ export const ModalContent = styled.div`
     filter: grayscale(1);
     object-fit: cover;
   }
+`;
 
-  & > div {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
+export const ContentRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
 
-    height: 100%;
-    width: 50%;
+  height: 100%;
+  width: 50%;
 
-    padding: 32px;
+  padding: 32px;
 
-    position: relative;
-
-    div {
-      position: absolute;
-      bottom: 27px;
-      left: 35px;
-      button {
-        img {
-          height: 20px;
-          width: 20px;
-        }
-      }
-    }
-  }
+  position: relative;
 
   h1 {
     font-size: 1.8rem;
@@ -196,6 +190,18 @@ export const ModalContent = styled.div`
     font-size: 1rem;
     margin-top: 24px;
     font-weight: bold;
+  }
+
+  div {
+    position: absolute;
+    bottom: 27px;
+    left: 35px;
+    button {
+      img {
+        height: 26px;
+        width: auto;
+      }
+    }
   }
 `;
 

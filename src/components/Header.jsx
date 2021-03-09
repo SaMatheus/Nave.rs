@@ -21,19 +21,16 @@ function Header() {
 
 export default Header;
 
-const HeaderStyle = styled.header`
-  height: 85px;
+const HeaderStyle = styled.div`
   width: 100%;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 32px;
+  padding: 32px;
 
-  position: fixed;
-  top: 0;
-  left: 0;
+  z-index: 0;
 
   img {
     width: 180px;

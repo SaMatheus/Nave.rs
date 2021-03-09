@@ -4,12 +4,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-
-  padding-top: 160px;
-
-  height: 100vh;
-  width: 100vw;
 `;
 
 export const Content = styled.div`
@@ -17,6 +11,8 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 50px;
 `;
 
 export const FormStyle = styled.div`
@@ -27,7 +23,11 @@ export const FormStyle = styled.div`
 
   gap: 54px 32px;
 
-  width: 560px;
+  width: 860px;
+
+  @media (max-width: 1400px) {
+    width: 560px;
+  }
 
   button {
     width: 176px;
