@@ -76,7 +76,7 @@ const Add = () => {
               type='text'
               placeholder='Nome'
               onChange={({ target }) => setName(target.value)}
-              required
+              required='required'
             >
               Nome
             </Input>
@@ -85,7 +85,7 @@ const Add = () => {
               type='text'
               placeholder='Cargo'
               onChange={({ target }) => setJob(target.value)}
-              required
+              required='required'
             >
               Cargo
             </Input>
@@ -94,7 +94,7 @@ const Add = () => {
               type='date'
               placeholder='Idade'
               onChange={({ target }) => setBirthdate(target.value)}
-              required
+              required='required'
             >
               Idade
             </Input>
@@ -103,7 +103,7 @@ const Add = () => {
               type='date'
               placeholder='Tempo de empresa'
               onChange={({ target }) => setAdmissionDate(target.value)}
-              required
+              required='required'
             >
               Tempo de empresa
             </Input>
@@ -112,7 +112,7 @@ const Add = () => {
               type='text'
               placeholder='Projetos que participou'
               onChange={({ target }) => setProject(target.value)}
-              required
+              required='required'
             >
               Projetos que participou
             </Input>
@@ -121,7 +121,7 @@ const Add = () => {
               type='text'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
-              required
+              required='required'
             >
               URL da foto do Naver
             </Input>

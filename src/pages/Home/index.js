@@ -31,10 +31,19 @@ const Home = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   const [naversArray, setNaversArray] = useState([]);
+  const [naverModalData, setNaverModalData] = useState([]);
 
   useEffect(() => {
     api.get('navers').then((response) => setNaversArray(response.data));
   }, []);
+
+  const handleClickToOpenModal = (id) => {
+    let naverId = id;
+    setModalVisible(true);
+    api
+      .get(`navers/${naverId}`)
+      .then((response) => setNaverModalData(response.data));
+  };
 
   return (
     <>
@@ -47,11 +56,14 @@ const Home = () => {
           </Button>
         </header>
         <Grid>
-          {naversArray.map((naver) => {
+          {naversArray.map((naver, index) => {
             return (
               <Profile key={naver.id}>
                 <span
-                  onClick={() => setModalVisible(true)}
+                  onClick={() => {
+                    handleClickToOpenModal(naversArray[index].id);
+                    setModalVisible(true);
+                  }}
                   style={{ backgroundImage: `url(${naver.url})` }}
                 ></span>
                 <h3>{naver.name}</h3>
@@ -69,25 +81,30 @@ const Home = () => {
                     <img src='/icons/pencil.svg' alt='editar' />
                   </ButtonStyle>
                 </div>
-                {modalVisible && !deleteProfileVisible ? (
+                {modalVisible && !deleteProfileVisible && naverModalData ? (
                   <Modal>
-                    <ModalContent>
-                      <ButtonStyle onClick={() => setModalVisible(false)}>
+                    <ModalContent key={naverModalData.id}>
+                      <ButtonStyle
+                        onClick={() => {
+                          setNaverModalData([]);
+                          setModalVisible(false);
+                        }}
+                      >
                         <img
                           src='/icons/close.svg'
                           alt='Botão para fechar o modal'
                         />
                       </ButtonStyle>
-                      <img src={naver.url} alt='' />
+                      <img src={naverModalData.url} alt='' />
                       <div>
-                        <h1>{naver.name}</h1>
-                        <p>{naver.job_role}</p>
+                        <h1>{naverModalData.name}</h1>
+                        <p>{naverModalData.job_role}</p>
                         <h3>Idade</h3>
-                        <p>{naver.birthdate}</p>
+                        <p>{naverModalData.birthdate}</p>
                         <h3>Tempo de empresa</h3>
-                        <p>{naver.admission_date}</p>
+                        <p>{naverModalData.admission_date}</p>
                         <h3>Projetos que realizou</h3>
-                        <p>{naver.project}</p>
+                        <p>{naverModalData.project}</p>
                         <div>
                           <ButtonStyle
                             onClick={() => {

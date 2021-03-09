@@ -96,7 +96,7 @@ function Login() {
                 setEmail(target.value);
               }}
               onBlur={() => {}}
-              required
+              required='required'
             >
               E-mail
             </Input>
@@ -105,7 +105,7 @@ function Login() {
               type='password'
               placeholder='Senha'
               onChange={({ target }) => setPassword(target.value)}
-              required
+              required='required'
             >
               Senha
             </Input>
