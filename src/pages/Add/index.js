@@ -53,8 +53,8 @@ const Add = () => {
     await api
       .post('navers/', {
         job_role: job,
-        admission_date: formattedBirthdate,
-        birthdate: formattedAdmissiondate,
+        admission_date: formattedAdmissiondate,
+        birthdate: formattedBirthdate,
         project: project,
         name: name,
         url: url,
