@@ -59,6 +59,52 @@ const Home = () => {
       });
   }, []);
 
+  const getAge = (birthdate) => {
+    // Data de hoje
+    let dateNow = new Date();
+    let dayNow = dateNow.getDate();
+    let monthNow = dateNow.getMonth() + 1;
+    let yearNow = dateNow.getFullYear();
+
+    // Data de aniversário do Naver
+    let birthdateDay = birthdate[2].slice(0, 2);
+    let birthdateMonth = birthdate[1];
+    let birthdateYear = birthdate[0];
+
+    let age = yearNow - birthdateYear;
+
+    if (
+      monthNow < birthdateMonth ||
+      (monthNow === birthdateMonth && dayNow < birthdateDay)
+    ) {
+      age--;
+    }
+    return setModalBirthdate(age < 0 ? 0 : age);
+  };
+
+  const getAdmissionDate = (initialDate) => {
+    // Data de hoje
+    let dateNow = new Date();
+    let dayNow = dateNow.getDate();
+    let monthNow = dateNow.getMonth() + 1;
+    let yearNow = dateNow.getFullYear();
+
+    // Data do inicio do Naver
+    let InitialDay = initialDate[2].slice(0, 2);
+    let InitialMonth = initialDate[1];
+    let InitialYear = initialDate[0];
+
+    let age = yearNow - InitialYear;
+
+    if (
+      monthNow < InitialMonth ||
+      (monthNow === InitialMonth && dayNow < InitialDay)
+    ) {
+      age--;
+    }
+    return setModalAdmissiondate(age < 0 ? 0 : age);
+  };
+
   const handleClickToOpenModal = (id) => {
     let naverId = id;
     setModalVisible(true);
@@ -66,23 +112,8 @@ const Home = () => {
       const newBirthdate = response.data.birthdate.split('-');
       const newAdmissiondate = response.data.admission_date.split('-');
 
-      const newBirthdateDay = newBirthdate[2].slice(0, 2);
-      const newAdmissiondateDay = newAdmissiondate[2].slice(0, 2);
-
-      const getAge = () => {
-        let dateNow = new Date();
-        let day = dateNow.getDate();
-        let month = dateNow.getMonth();
-        let year = dateNow.getFullYear();
-
-        console.log(year);
-      };
-      getAge();
-
-      console.log(newBirthdate[0], newBirthdate[1], newBirthdateDay);
-
-      // setModalBirthdate(formattedBirthdate);
-      // setModalAdmissiondate(formattedAdmissiondate);
+      getAge(newBirthdate);
+      getAdmissionDate(newAdmissiondate);
 
       setNaverModalData(response.data);
     });
@@ -154,9 +185,17 @@ const Home = () => {
                           <h1>{naverModalData.name}</h1>
                           <p>{naverModalData.job_role}</p>
                           <h3>Idade</h3>
-                          <p>{modalBirthdate}</p>
+                          <p>
+                            {modalBirthdate <= 1
+                              ? modalBirthdate + ' Ano'
+                              : modalBirthdate + ' Anos'}
+                          </p>
                           <h3>Tempo de empresa</h3>
-                          <p>{modalAdmissiondate}</p>
+                          <p>
+                            {modalAdmissiondate <= 1
+                              ? modalAdmissiondate + ' Ano'
+                              : modalAdmissiondate + ' Anos'}
+                          </p>
                           <h3>Projetos que realizou</h3>
                           <p>{naverModalData.project}</p>
                           <div>
