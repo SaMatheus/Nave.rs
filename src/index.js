@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import EditProvider from './contexts/EditContext';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <EditProvider>
+    <App />
+  </EditProvider>,
+  document.getElementById('root')
+);

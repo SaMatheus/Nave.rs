@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 // AXIOS
 import api from '../../services/api';
@@ -25,6 +25,9 @@ import { RiArrowLeftSLine } from 'react-icons/ri';
 // ROUTER
 import { useHistory } from 'react-router-dom';
 
+// CONTEXT
+import { EditContext } from '../../contexts/EditContext';
+
 const Add = () => {
   const [name, setName] = useState('');
   const [job, setJob] = useState('');
@@ -35,38 +38,67 @@ const Add = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  const { naverId } = useContext(EditContext);
+
   const history = useHistory();
 
   useEffect(() => {
-    api.get('navers').then((response) => console.log(response));
+    getData();
   }, []);
 
+  const getData = async () => {
+    await api.get(`navers/${naverId}`).then((response) => {
+      const newBirthdate = response.data.birthdate.split('-');
+      const newAdmissiondate = response.data.admission_date.split('-');
+
+      const newBirthdateDay = newBirthdate[2].slice(0, 2);
+      const newAdmissiondateDay = newAdmissiondate[2].slice(0, 2);
+
+      const formattedBirthdate = `${newBirthdate[0]}-${newBirthdate[1]}-${newBirthdateDay}`;
+      const formattedAdmissiondate = `${newAdmissiondate[0]}-${newAdmissiondate[1]}-${newAdmissiondateDay}`;
+
+      setName(response.data.name);
+      setJob(response.data.job_role);
+      setBirthdate(formattedBirthdate);
+      setAdmissionDate(formattedAdmissiondate);
+      setProject(response.data.project);
+      setUrl(response.data.url);
+    });
+  };
+
   const editNaver = async () => {
-    await api
-      .post('navers/create', {
+    const newBirthdate = birthdate.split('-');
+    const newAdmissiondate = admissionDate.split('-');
+
+    const formattedBirthdate = `
+    ${newBirthdate[2]}/${newBirthdate[1]}/${newBirthdate[0]}
+    `;
+    const formattedAdmissiondate = `
+    ${newAdmissiondate[2]}/${newAdmissiondate[1]}/${newAdmissiondate[0]}
+    `;
+
+    api
+      .put(`navers/${naverId}`, {
         name: name,
         job_role: job,
-        birthdate: birthdate,
-        admission_date: admissionDate,
+        birthdate: formattedBirthdate,
+        admission_date: formattedAdmissiondate,
         project: project,
         url: url,
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        setModalVisible(true);
+        console.log(response);
+      });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     editNaver();
   };
 
   const handleClickBack = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      return history.push('/home');
-    } else {
-      console.log('Token não encontrado, finalizando sessão!');
-      return history.push('/');
-    }
+    return history.push('/home');
   };
 
   return (
@@ -82,57 +114,55 @@ const Add = () => {
             <Input
               for='name'
               type='text'
-              placeholder='Nome'
+              placeholder={'Nome'}
               onChange={({ target }) => setName(target.value)}
               minLength={3}
-              required='required'
+              value={name}
             >
               Nome
             </Input>
             <Input
               for='job_role'
               type='text'
-              placeholder='Cargo'
+              placeholder={'Cargo'}
               onChange={({ target }) => setJob(target.value)}
               minLength={3}
-              required='required'
+              value={job}
             >
               Cargo
             </Input>
             <Input
               for='birthdate'
               type='date'
-              placeholder='Idade'
               onChange={({ target }) => setBirthdate(target.value)}
-              required='required'
+              value={birthdate}
             >
               Idade
             </Input>
             <Input
               for='admission_date'
               type='date'
-              placeholder='Tempo de empresa'
               onChange={({ target }) => setAdmissionDate(target.value)}
-              required='required'
+              value={admissionDate}
             >
               Tempo de empresa
             </Input>
             <Input
               for='project'
               type='text'
-              placeholder='Projetos que participou'
+              placeholder={'Projetos que participou'}
               onChange={({ target }) => setProject(target.value)}
-              required='required'
+              value={project}
             >
               Projetos que participou
             </Input>
             <Input
               for='url'
               type='text'
-              placeholder='URL da foto do Naver'
+              placeholder={'Url do Naver'}
               onChange={({ target }) => setUrl(target.value)}
               minLength={5}
-              required='required'
+              value={url}
             >
               URL da foto do Naver
             </Input>
@@ -147,12 +177,13 @@ const Add = () => {
             <ButtonStyle
               onClick={() => {
                 setModalVisible(false);
+                handleClickBack();
               }}
             >
               <img src='/icons/close.svg' alt='Botão para fechar o modal' />
             </ButtonStyle>
-            <h1>Naver criado</h1>
-            <p>Naver criado com sucesso!</p>
+            <h1>Naver Atualizado</h1>
+            <p>Naver atualizado com sucesso!</p>
           </ModalContent>
         </Modal>
       )}

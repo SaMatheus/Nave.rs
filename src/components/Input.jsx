@@ -12,6 +12,8 @@ function Input(props) {
           onChange={props.onChange}
           required={props.required}
           minLength={props.minLength}
+          value={props.value}
+          defaultValue={props.defaultValue}
         />
       </Label>
     </>
@@ -39,4 +41,12 @@ const InputStyle = styled.input`
   border: 1px solid #424242;
   padding: 0 8px;
   font-size: 16px;
+  font-weight: 600;
+
+  &::-webkit-input-placeholder {
+    opacity: 0.3;
+  }
+  &:-moz-placeholder {
+    opacity: 0.3;
+  }
 `;

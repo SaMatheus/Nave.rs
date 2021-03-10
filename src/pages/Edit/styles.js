@@ -29,6 +29,16 @@ export const FormStyle = styled.div`
     width: 560px;
   }
 
+  @media (max-width: 600px) {
+    width: 100%;
+    grid-template-columns: 1fr;
+    button {
+      width: 100%;
+      transform: translateY(-3rem);
+      justify-self: center;
+    }
+  }
+
   button {
     width: 176px;
     justify-self: end;

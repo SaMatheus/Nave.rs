@@ -78,13 +78,7 @@ const Add = () => {
   };
 
   const handleClickBack = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      return history.push('/home');
-    } else {
-      console.log('Token não encontrado, finalizando sessão!');
-      return history.push('/');
-    }
+    return history.push('/home');
   };
 
   return (

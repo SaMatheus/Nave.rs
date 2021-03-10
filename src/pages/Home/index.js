@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 // COMPONENTS
 import Button from '../../components/Button';
@@ -24,18 +24,21 @@ import { useHistory } from 'react-router-dom';
 // AXIOS
 import api from '../../services/api';
 
+// CONTEXT
+import { EditContext } from '../../contexts/EditContext';
+
 const Home = () => {
   const history = useHistory();
 
   const [getData, setGetData] = useState(false);
-
+  const [naverModalData, setNaverModalData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteProfileVisible, setDeleteProfileVisible] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   const [naversArray, setNaversArray] = useState([]);
-  const [naverModalData, setNaverModalData] = useState([]);
-  const [naverIdToDelete, setNaverIdToDelete] = useState();
+
+  const { naverId, setNaverId } = useContext(EditContext);
 
   useEffect(() => {
     api
@@ -59,7 +62,7 @@ const Home = () => {
   };
 
   const handleDeleteConfirmation = async () => {
-    await api.delete(`navers/${naverIdToDelete}`);
+    await api.delete(`navers/${naverId}`);
   };
 
   return (
@@ -91,12 +94,17 @@ const Home = () => {
                       onClick={() => {
                         setModalVisible(false);
                         setDeleteProfileVisible(true);
-                        setNaverIdToDelete(naver.id);
+                        setNaverId(naver.id);
                       }}
                     >
                       <img src='/icons/bin.svg' alt='deletar' />
                     </ButtonStyle>
-                    <ButtonStyle onClick={() => history.push('/edit')}>
+                    <ButtonStyle
+                      onClick={() => {
+                        setNaverId(naver.id);
+                        history.push('/edit');
+                      }}
+                    >
                       <img src='/icons/pencil.svg' alt='editar' />
                     </ButtonStyle>
                   </div>
@@ -127,14 +135,19 @@ const Home = () => {
                           <div>
                             <ButtonStyle
                               onClick={() => {
-                                setNaverIdToDelete(naverModalData.id);
+                                setNaverId(naverModalData.id);
                                 setModalVisible(false);
                                 setDeleteProfileVisible(true);
                               }}
                             >
                               <img src='/icons/bin.svg' alt='deletar naver' />
                             </ButtonStyle>
-                            <ButtonStyle onClick={() => history.push('/edit')}>
+                            <ButtonStyle
+                              onClick={() => {
+                                setNaverId(naver.id);
+                                history.push('/edit');
+                              }}
+                            >
                               <img src='/icons/pencil.svg' alt='editar naver' />
                             </ButtonStyle>
                           </div>
@@ -156,7 +169,7 @@ const Home = () => {
                             <Button
                               onClick={() => {
                                 setDeleteConfirmation(true);
-                                setNaverIdToDelete(naverModalData.id);
+                                setNaverId(naverModalData.id);
                                 handleDeleteConfirmation();
                               }}
                             >
