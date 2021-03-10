@@ -14,7 +14,16 @@ export const Content = styled.div`
 
     width: 100%;
 
-    padding: 40px 32px;
+    padding: 28px;
+
+    @media (max-width: 460px) {
+      flex-direction: column;
+      align-items: flex-start;
+
+      button {
+        margin-top: 1rem;
+      }
+    }
 
     h1 {
       font-size: 40px;
@@ -91,6 +100,7 @@ export const Profile = styled.div`
     filter: grayscale(1);
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
 
     &:hover {
       filter: brightness(1.2);
@@ -133,7 +143,7 @@ export const ButtonStyle = styled.button`
 `;
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -149,8 +159,8 @@ export const Modal = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  height: 80%;
-  width: 80%;
+  height: 85%;
+  width: 85%;
 
   max-height: 700px;
   max-width: 1203px;
@@ -160,12 +170,22 @@ export const ModalContent = styled.div`
     max-width: 1003px;
   }
 
+  @media (max-width: 460px) {
+    img:nth-child(2) {
+      height: 90%;
+      max-height: 100%;
+      display: none;
+    }
+  }
+
   background: var(--white);
 
   display: flex;
 
   position: fixed;
-  top: 109px;
+  top: 50%;
+
+  transform: translateY(-50%);
 
   & > button:nth-child(1) {
     position: absolute;
@@ -202,6 +222,13 @@ export const ContentRight = styled.div`
 
   position: relative;
 
+  @media (max-width: 460px) {
+    width: 100%;
+    p {
+      font-size: 1rem;
+    }
+  }
+
   h1 {
     font-size: 1.8rem;
     line-height: 2.5rem;
@@ -227,7 +254,7 @@ export const ContentRight = styled.div`
 `;
 
 export const DeleteModal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -284,6 +311,29 @@ export const ModalDeleteContent = styled.div`
       }
     }
   }
+
+  @media (max-width: 460px) {
+    height: 50%;
+    width: 87%;
+
+    p {
+      line-height: 1.8rem;
+    }
+
+    & > div {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px 0;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    height: 55%;
+  }
 `;
 
 export const DeleteCompleteModal = styled.div`
@@ -316,6 +366,32 @@ export const DeleteCompleteModal = styled.div`
     img {
       height: 14px;
       width: 14px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    height: 22%;
+    width: 87%;
+
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      line-height: 1.8rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    h1 {
+      font-size: 1.3rem;
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 1rem;
+    }
+    & > button:nth-child(1) {
+      top: 16px;
+      right: 16px;
     }
   }
 `;

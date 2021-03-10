@@ -166,9 +166,8 @@ const Add = () => {
             >
               URL da foto do Naver
             </Input>
-            <span></span>
-            <Button type='submit'>Salvar</Button>
           </FormStyle>
+          <Button type='submit'>Salvar</Button>
         </form>
       </Content>
       {modalVisible && (

@@ -33,42 +33,38 @@ const Add = () => {
   const [project, setProject] = useState('');
   const [url, setUrl] = useState('');
 
+  const [error, setError] = useState(false);
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const history = useHistory();
 
-  const clearData = () => {
-    setName('');
-    setJob('');
-    setBirthdate('01/02/2020');
-    setAdmissionDate('01/02/2020');
-    setProject('');
-    setUrl('');
-  };
-
   const createNaver = async () => {
-    const newAdmissionDate = new Date(admissionDate);
-    const newBirthdate = new Date(birthdate);
+    const newBirthdate = birthdate.split('-');
+    const newAdmissiondate = admissionDate.split('-');
 
-    const AdmissionUpdate = new Intl.DateTimeFormat().format(newAdmissionDate);
-    const birthUpdate = new Intl.DateTimeFormat().format(newBirthdate);
+    const formattedBirthdate = `
+    ${newBirthdate[2]}/${newBirthdate[1]}/${newBirthdate[0]}
+    `;
+    const formattedAdmissiondate = `
+    ${newAdmissiondate[2]}/${newAdmissiondate[1]}/${newAdmissiondate[0]}
+    `;
 
     await api
       .post('navers/', {
         job_role: job,
-        admission_date: AdmissionUpdate,
-        birthdate: birthUpdate,
+        admission_date: formattedBirthdate,
+        birthdate: formattedAdmissiondate,
         project: project,
         name: name,
         url: url,
       })
       .then((response) => {
-        clearData();
         setModalVisible(true);
         return response;
       })
       .catch((error) => {
-        console.log(error);
+        setError(true);
       });
   };
 
@@ -91,6 +87,14 @@ const Add = () => {
             <p>Adicionar Naver</p>
           </Back>
           <FormStyle>
+            {error && (
+              <span>
+                <p>
+                  Opa, parece que alguns dados já foram cadastrados.
+                  <br /> Verifique se o Naver já está cadastrado!
+                </p>
+              </span>
+            )}
             <Input
               for='name'
               type='text'
@@ -140,7 +144,7 @@ const Add = () => {
             </Input>
             <Input
               for='url'
-              type='text'
+              type='url'
               placeholder='URL da foto do Naver'
               onChange={({ target }) => setUrl(target.value)}
               minLength={5}
@@ -148,9 +152,8 @@ const Add = () => {
             >
               URL da foto do Naver
             </Input>
-            <span></span>
-            <Button type='submit'>Salvar</Button>
           </FormStyle>
+          <Button type='submit'>Salvar</Button>
         </form>
       </Content>
       {modalVisible && (
@@ -158,6 +161,7 @@ const Add = () => {
           <ModalContent>
             <ButtonStyle
               onClick={() => {
+                handleClickBack();
                 setModalVisible(false);
               }}
             >

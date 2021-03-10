@@ -34,13 +34,13 @@ function Login() {
   };
 
   const postData = async () => {
+    setIsValid(true);
     const response = await api
       .post('users/login', {
         email,
         password,
       })
       .then((response) => {
-        setIsValid(true);
         login(response.data.token);
         history.push('/home');
       })
@@ -88,7 +88,9 @@ function Login() {
               <span>Usuário não encontrado. Email ou senha inválidos!</span>
             ) : isValid ? (
               <span style={{ color: 'green' }}>
-                Login realizado com sucesso! Redirecionando...
+                {/* Isso aqui vai ser muito util caso o usuário esteja com a internet lenta
+                e demore para redirecionar ela para o home */}
+                Validando credenciais. Por favor, aguarde...
               </span>
             ) : (
               ''

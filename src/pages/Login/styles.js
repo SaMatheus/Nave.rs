@@ -46,4 +46,14 @@ export const Content = styled.div`
     position: absolute;
     top: 10px;
   }
+
+  @media (max-width: 500px) {
+    width: 90%;
+    padding-bottom: 0;
+    form {
+      padding-top: 10px;
+      height: 100%;
+      justify-content: space-evenly;
+    }
+  }
 `;

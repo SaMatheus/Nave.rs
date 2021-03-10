@@ -32,6 +32,8 @@ const Home = () => {
 
   const [getData, setGetData] = useState(false);
   const [naverModalData, setNaverModalData] = useState([]);
+  const [modalBirthdate, setModalBirthdate] = useState();
+  const [modalAdmissiondate, setModalAdmissiondate] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteProfileVisible, setDeleteProfileVisible] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -44,11 +46,15 @@ const Home = () => {
     api
       .get('navers')
       .then((response) => {
-        setGetData(true);
-        setNaversArray(response.data);
+        if (response.data.length !== 0) {
+          setGetData(true);
+          setNaverId('');
+          return setNaversArray(response.data);
+        } else {
+          return setGetData(false);
+        }
       })
       .catch((error) => {
-        setGetData(false);
         console.log(error);
       });
   }, []);
@@ -56,9 +62,30 @@ const Home = () => {
   const handleClickToOpenModal = (id) => {
     let naverId = id;
     setModalVisible(true);
-    api
-      .get(`navers/${naverId}`)
-      .then((response) => setNaverModalData(response.data));
+    api.get(`navers/${naverId}`).then((response) => {
+      const newBirthdate = response.data.birthdate.split('-');
+      const newAdmissiondate = response.data.admission_date.split('-');
+
+      const newBirthdateDay = newBirthdate[2].slice(0, 2);
+      const newAdmissiondateDay = newAdmissiondate[2].slice(0, 2);
+
+      const getAge = () => {
+        let dateNow = new Date();
+        let day = dateNow.getDate();
+        let month = dateNow.getMonth();
+        let year = dateNow.getFullYear();
+
+        console.log(year);
+      };
+      getAge();
+
+      console.log(newBirthdate[0], newBirthdate[1], newBirthdateDay);
+
+      // setModalBirthdate(formattedBirthdate);
+      // setModalAdmissiondate(formattedAdmissiondate);
+
+      setNaverModalData(response.data);
+    });
   };
 
   const handleDeleteConfirmation = async () => {
@@ -127,9 +154,9 @@ const Home = () => {
                           <h1>{naverModalData.name}</h1>
                           <p>{naverModalData.job_role}</p>
                           <h3>Idade</h3>
-                          <p>{naverModalData.birthdate}</p>
+                          <p>{modalBirthdate}</p>
                           <h3>Tempo de empresa</h3>
-                          <p>{naverModalData.admission_date}</p>
+                          <p>{modalAdmissiondate}</p>
                           <h3>Projetos que realizou</h3>
                           <p>{naverModalData.project}</p>
                           <div>
@@ -144,7 +171,7 @@ const Home = () => {
                             </ButtonStyle>
                             <ButtonStyle
                               onClick={() => {
-                                setNaverId(naver.id);
+                                setNaverId(naverModalData.id);
                                 history.push('/edit');
                               }}
                             >
@@ -205,7 +232,7 @@ const Home = () => {
               );
             })}
           </Grid>
-        ) : !getData ? (
+        ) : !getData || getData === [] ? (
           <h1
             style={{ fontSize: '32px', margin: '10% 0 0 32px', opacity: '0.5' }}
           >

@@ -7,12 +7,36 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 50px 0;
 
-  margin-top: 50px;
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+
+    button:nth-last-child(1) {
+      width: 226px;
+      margin-top: 32px;
+    }
+  }
+
+  @media (max-width: 1400px) {
+    form {
+      button:nth-last-child(1) {
+        width: 176px;
+      }
+    }
+  }
+
+  @media (max-width: 570px) {
+    form {
+      button:nth-last-child(1) {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const FormStyle = styled.div`
@@ -21,7 +45,7 @@ export const FormStyle = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  gap: 54px 32px;
+  gap: 32px;
 
   width: 860px;
 
@@ -29,9 +53,27 @@ export const FormStyle = styled.div`
     width: 560px;
   }
 
-  button {
-    width: 176px;
-    justify-self: end;
+  @media (max-width: 570px) {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  label {
+    height: 100%;
+  }
+
+  span {
+    border: 1px solid var(--warning);
+    background-color: rgba(223, 54, 54, 0.3);
+    width: 100%;
+    justify-self: center;
+
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    text-align: center;
   }
 `;
 
@@ -84,20 +126,17 @@ export const ButtonStyle = styled.button`
 `;
 
 export const Modal = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 
-  height: 100%;
-  width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
 
-  z-index: 1;
+  z-index: 100;
 
   background: rgba(0, 0, 0, 0.5);
 `;
@@ -122,8 +161,8 @@ export const ModalContent = styled.div`
 
   & > button:nth-child(1) {
     position: absolute;
-    top: 21px;
-    right: 21px;
+    top: 24px;
+    right: 24px;
 
     margin: 0;
 
@@ -132,6 +171,32 @@ export const ModalContent = styled.div`
     img {
       height: 14px;
       width: 14px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    height: 22%;
+    width: 87%;
+
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      line-height: 1.8rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    h1 {
+      font-size: 1.3rem;
+    }
+    p {
+      font-size: 0.8rem;
+      line-height: 1rem;
+    }
+    & > button:nth-child(1) {
+      top: 16px;
+      right: 16px;
     }
   }
 `;
