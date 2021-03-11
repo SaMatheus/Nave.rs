@@ -23,6 +23,7 @@ export const Content = styled.div`
   }
 
   @media (max-width: 1400px) {
+    padding: 40px 0;
     form {
       button:nth-last-child(1) {
         width: 176px;
