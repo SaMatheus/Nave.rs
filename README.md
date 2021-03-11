@@ -1,8 +1,8 @@
-# O que achei do teste :rocket:
+# O que achei do teste:rocket:
 <p>Simplesmente INCRIVEL:fire: Eu costumo realizar os testes me desafiando a aprender coisas novas durante o processo e esse teste foi um divisor de aguas pra mim pessoalmente e profissionalmente. Não fazia ideia que eu conseguiria entregar tudo do jeito que eu gostaria, muito menos que conseguiria fazer isso antes do prazo kkk</p>
 <p>De verdade<strong>MUITO OBRIGADO POR ESSE TESTE!</strong></p>
 
-# Dificuldades :door:
+# Dificuldades:door:
 <p>Tive muitas durante o caminho, mas acho que a primeira foi:</p> 
 <h3>:one: Sair da minha zona de conforto e me permitir aprender com tudo que eu tava fazendo. </h3>
 <p>Durante muito tempo eu tinha um sério problema em lidar com requisições, até em coisas simples como uma tela de login. Mas esse teste me ajudou a me aventurar no inspetor do navegador e descobrir como encontrar o que eu precisava.</p>
@@ -16,6 +16,6 @@
 <h3>:four: Lidar com datas</h3>
 <p>Esse ao mesmo tempo que foi muito bom aprender, foi extremamente trabalhoso. Sempre fugi de trabhalhar com datas no JS, mas depois desse projeto consegui aprender taticas excelentes pra enfrentar esse monstro!</p>
 
-# Considerações finais :muscle:
+# Considerações finais:muscle:
 <h3>Eu já sou um Naver, no coração!</h3>
-<p>Brincadeiras a parte, eu evolui muito como programador realizando esse teste e, independente da decisão de vocês, eu já sou muito grato. Muito obirgado:heart:</p>
+<p>Brincadeiras a parte, eu evolui muito como programador realizando esse teste e, independente da decisão de vocês, eu já sou muito grato. Muito obirgado :heart:</p>
