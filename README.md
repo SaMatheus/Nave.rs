@@ -4,7 +4,7 @@
 
 # Dificuldades:door:
 <p>Tive muitas durante o caminho, mas acho que a primeira foi:</p> 
-<h3>:one: Sair da minha zona de conforto e me permitir aprender com tudo que eu tava fazendo. </h3>
+<h3>:one: Sair da minha zona de conforto e me permitir aprender com tudo que eu estava fazendo. </h3>
 <p>Durante muito tempo eu tinha um sério problema em lidar com requisições, até em coisas simples como uma tela de login. Mas esse teste me ajudou a me aventurar no inspetor do navegador e descobrir como encontrar o que eu precisava.</p>
 
 <h3>:two: Utilizar Axios em todo o projeto</h3>
