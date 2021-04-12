@@ -21,4 +21,4 @@
 <p>Brincadeiras a parte, eu evolui muito como programador realizando esse teste e, independente da decisão de vocês, eu já sou muito grato. Muito obirgado :heart:</p>
  
 # Login
-<p> Para utilizar o sistema acesso com o usuário nave@nave.com e a senha nave123456</p> 
+<p> Para utilizar o sistema acesso com o usuário <strong>nave@nave.com</strong> e a senha <strong>nave123456</strong></p> 
