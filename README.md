@@ -2,6 +2,38 @@
 <p>Simplesmente INCRIVEL:fire: Eu costumo realizar os testes me desafiando a aprender coisas novas durante o processo e esse teste foi um divisor de aguas pra mim pessoalmente e profissionalmente. Não fazia ideia que eu conseguiria entregar tudo do jeito que eu gostaria, muito menos que conseguiria fazer isso antes do prazo kkk</p>
 <p>De verdade<strong>MUITO OBRIGADO POR ESSE TESTE!</strong></p>
 
+<h2 id="local">
+⚛ Rodando aplicação localmente
+</h2>
+
+> **⚠ Atenção !** <br> Antes de prosseguir com o passo a passo abaixo você precisa ter instalado em sua máquina o gerenciador de pacote [Yarn](https://classic.yarnpkg.com/en/docs/install) e o [Git](https://git-scm.com).
+
+<br>
+
+> 📝 Clonando o repositório e entrando no diretório criado.
+
+```shell
+git clone https://github.com/SaMatheus/grupogps-frontend-test.git && cd grupogps-frontend-test
+```
+
+> 📝 Baixando / Instalando dependências.
+
+```shell
+yarn install
+```
+
+> 📝 Rodando Aplicação
+
+```shell
+yarn dev
+```
+
+> Pronto 🎉 se tudo ocorreu conforme o esperado 😁 a aplicação estará
+> rodando na porta 3000. Basta acessar o endereço no navegador
+> http://localhost:3000 e você verá a aplicação funcionando.
+
+<br>
+
 # Dificuldades:door:
 <p>Tive muitas durante o caminho, mas acho que a primeira foi:</p> 
 <h3>:one: Sair da minha zona de conforto e me permitir aprender com tudo que eu estava fazendo. </h3>
